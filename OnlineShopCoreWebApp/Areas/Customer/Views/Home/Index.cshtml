@@ -1,0 +1,38 @@
+﻿@using OnlineShopCoreWebApp.Models;
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<Products>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<br />
+<br />
+<div class="row" style=" vertical-align: top;display: inline-block;margin-right: 1em;margin-left:4%;">
+    @foreach (var product in Model)
+    {
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="text-align:center;">
+                    <img src="@product.Image" style="width:50%;height:180px;  " />
+                    <h4 class="my-0 font-weight-normal">
+                        <label style="font-size:20px;color:steelblue">@product.Name</label>
+                    </h4>
+                </div>
+                <div class="panel-heading" style="text-align:center">
+                    <div class="btn-group">
+                        <label style="font-size:15px;color:brown">Price: @product.Price</label>
+                    </div>
+                    <a asp-action="Detail" asp-controller="Home" asp-route-id="@product.Id" class="pull-right" title="see details"><i class="fas fa-info-circle"></i> Details</a>
+                    
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div>
+   
+    @Html.PagedListPager(Model,x=>Href("~/Customer/Home/Index?page="+x))
+</div>
+@section scripts{
+ 
+}

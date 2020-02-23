@@ -1,0 +1,122 @@
+﻿@model OnlineShopCoreWebApp.Models.Order
+
+@using OnlineShopCoreWebApp.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextAccessor
+@{
+
+    List<Products> products = httpContextAccessor.HttpContext.Session.Get<List<Products>>("products");
+
+    if (products == null)
+    {
+
+        products = new List<Products>();
+
+    }
+
+}
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<h2> Product Details</h2>
+<form method="post" enctype="multipart/form-data">
+    <div class="col-6">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+
+        </div>
+        <div class="form-group row" style="margin-left:2px;">
+            <div class="col-4">
+                <label asp-for="Name"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Name" style="width:40%" placeholder="enter you name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="col-4">
+                <label asp-for="PhoneNo"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="PhoneNo" style="width:40%" placeholder="enter you phone no" class="form-control" />
+                <span asp-validation-for="PhoneNo" class="text-danger"></span>
+            </div>
+            <div class="col-4">
+                <label asp-for="Address"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Address" style="width:40%" placeholder="enter you Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="col-4">
+                <label asp-for="Email"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Email" style="width:40%" placeholder="enter you email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="col-4">
+                <label asp-for="OrderDate"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="OrderDate" type="text" id="orderText" value="@DateTime.Now.ToString("MM-dd-yyy")" style="width:40%" class="form-control" />
+                <span asp-validation-for="OrderDate" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6 text-right">
+        <table class="table table-bordered">
+
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in products)
+                {
+                    <tr>
+                        <td style="text-align:center;">
+                            <img src="@item.Image" height="100px" width="100px" />
+                        </td>
+                        <td>@item.Name</td>
+                        <td>@item.Price</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="row">
+
+            <div class="col-6 text-right">
+                <h3>Total Amount</h3>
+                <h3>Grand Total : @products.Sum(x => x.Price)</h3>
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Place Order" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+
+
+        
+        <script>
+        $(function () {
+            $("#orderText").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                format: 'MM/dd/yyyy',
+                yearRange: '1901:2099'
+            });
+        });
+        </script>
+    }
+}

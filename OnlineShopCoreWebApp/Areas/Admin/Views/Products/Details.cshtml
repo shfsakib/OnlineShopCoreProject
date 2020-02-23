@@ -1,0 +1,65 @@
+﻿@model OnlineShopCoreWebApp.Models.Products
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2> Product Details</h2>
+
+<div>
+    <hr />
+
+    <div class="row" style="margin-left:10%;">
+        <img src="@Model.Image" style="width:150px;height:150px;" />
+    </div><br />
+    <dl class="dl-horizontal" style="width:50%;">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductColor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProductColor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAvailable)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsAvailable)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductTypes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProductTypes.ProductType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecialTags)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SpecialTags.TagName)
+        </dd>
+    </dl>
+    <hr />
+
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a> 
+    <a asp-action="Index" class="btn btn-success">Back to List</a>
+</div>

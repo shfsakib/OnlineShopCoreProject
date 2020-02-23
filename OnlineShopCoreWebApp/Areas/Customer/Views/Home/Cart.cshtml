@@ -1,0 +1,65 @@
+﻿@using OnlineShopCoreWebApp.Models
+@model List<Products>
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<h2>Your Cart</h2>
+<br />
+<form method="post">
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Product Type</th>
+                    <th>Color</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="text-align:center;">
+                            <img src="@item.Image" width="100px" height="100px;" />
+                        </td>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.Price
+
+                        </td>
+                        <td>
+                            @item.ProductTypes.ProductType
+
+                        </td>
+                        <td>
+                            @item.ProductColor
+
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-danger form-control" style="width:60%;" asp-action="Remove" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i></button>
+                            @*<a asp-action="Remove" asp-controller="Home" asp-route-id="@item.Id" class="btn btn-danger" title="Remove">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <a asp-action="Index" asp-controller="Home" class="btn btn-success">Back to home</a>
+        </div>
+        <div class="col-6 text-right">
+            <h3>Total Amount</h3>
+            <h3>Grand Total : @Model.Sum(x=>x.Price)</h3>
+            <a asp-area="Customer" asp-action="Checkout" asp-controller="Order" class="btn btn-info" >Process to Checkout</a>
+        </div>
+    </div>
+</form>

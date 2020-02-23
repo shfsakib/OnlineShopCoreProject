@@ -1,0 +1,81 @@
+﻿@using OnlineShopCoreWebApp.Models;
+@model IEnumerable<ProductTypes>
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="text-info" style="margin-left:170px;">Product Type List</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp;New Product Type </a>
+        </div>
+    </div>
+    <br />
+    <form method="post">
+        <div class="row">
+            <div class="">
+                <input type="text" class="form-control" style="width:20%;float:left;margin-left:16%;" placeholder="Enter product type" name="type" />
+
+                <input type="submit" class="btn btn-success" style="margin-left:5px;" value="Search" />
+
+
+            </div>
+
+            <div class="col-3"></div>
+        </div>
+    </form>
+    <br />
+    <div class="">
+        <table class="table table-striped border" id="myTable" style="width:70%;margin:auto">
+            <thead>
+                <tr class="table-info">
+                    <th>@Html.DisplayNameFor(x => x.ProductType)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ProductType</td>
+                        <td>
+                            <partial name="_ButtonPartial" model="@item.Id" />
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <br />
+
+@section scripts{
+
+
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script type="text/javascript">
+    //     $(document).ready(function() {
+    //$('#myTable').DataTable( {
+    //    dom: 'Bfrtip',
+    //    buttons: [
+    //        'copy', 'csv', 'excel', 'pdf', 'print'
+    //    ]
+    //});
+    //});
+
+    $(function () {
+        var save = '@TempData["save"]';
+
+        if (save != null) {
+            alertify.warning(save);
+        }
+
+
+    })
+    </script>
+}
+
